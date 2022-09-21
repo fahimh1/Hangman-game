@@ -44,9 +44,15 @@ def choose_recipes(category,file_paths):
     # is a list of recipes that exists in the file path given
     #print(valid_recipes)
     while user_recipe not in valid_recipes:
+        if len(valid_recipes) < 1:
+            print('No recipes for this category :( ')
+            break
+        # if there are no recipes in the directory it outputs a message and breaks the loop.
         user_recipe = input('Enter a recipe from the following recipes -------> ' + ', '.join(items.strip('.txt')
                                                                                              for items in
                                                                                              category) + '.\n').lower()
+        if len(valid_recipes) < 1:
+            break
         # takes the user input for the recipes and also displays the all recipes in the directory
         if user_recipe in valid_recipes:
             # checks if the user's input is valid (is and actual file in the directory)
@@ -105,9 +111,15 @@ def remove_category(file_dir):
 
 
 def remove_file(file):
-    system("cls")
-    print('you have deleted the file ' + file.name)
-    os.remove(file)
+    if file is None:
+        system("cls")
+        print ('This directory is empty no files to delete')
+    # If there are no recipes in the chosen directory
+
+    else:
+        system("cls")
+        print('you have deleted the file ' + file.name)
+        os.remove(file)
 
 # This function deletes a recipe(.txt file)
 # The user choose a file from the choose_recipe function, it is passed through to this function and deleted the file
@@ -141,15 +153,23 @@ def remove_file(file):
 user = ''
 
 while user.upper() != 'EXIT':
-    user = input('Welcome, please enter 1,2,3,4 or 5 for the following options \n1)Do you want to view a category/recipe\n'
-          '2)Create a new recipe\n3)Delete a recipe\n4)Create a new category'
-          '\n5)Delete a category\nOr if you want to exit the program exit the program type EXIT ')
+    user = input('''Welcome, please enter 1,2,3,4 or 5 for the following options Do you want to
+    \n[1] - View a category/recipe
+    \n[2] - Create a new recipe
+    \n[3] - Delete a recipe
+    \n[4] - Create a new category
+    \n[5] - Delete a category
+    \nOr if you want to exit the program exit the program type EXIT ''')
 
     if user == str(1) or user == str(2) or user == str(3):
         system('cls')
         category, file_paths, file_dir = choose_category()
-        user = input('Do you want to\n1)Do you want to view a recipe\n2)Create a new recipe\n3)Delete a recipe\n'
-                     'or type back to go the the main menu\n')
+        user = input('''Do you want to
+        \n[1] - Do you want to view a recipe
+        \n[2] - Create a new recipe
+        \n[3] - Delete a recipe
+        \nor type back to go the the main menu\n''')
+
         while user != str(1) or str(2) or str(3) or 'back':
             if user == str(1):
                 file = choose_recipes(category,file_paths)
