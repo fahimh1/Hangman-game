@@ -1,1 +1,8 @@
-# Hangmangame
+
+
+# Hangmangame 
+
+Simple hangman game 
+A random word is chosen from the txt file 
+User inputs guesses until all lives are lost or the word is guessed correctly 
+
